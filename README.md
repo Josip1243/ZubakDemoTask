@@ -1,5 +1,9 @@
 # ZubakDemoTask
 
+Ispod u nastavku je opisan zadatak vezan uz Java dio.
+DockerfileNew predstavlja prepravljeni dio koda za Docker dio, također tako i OrderServiceRefactored je prepravljeni dio koda za Javu.
+Unutar Answers.docx su detaljnije objašnjeni odgovori za Docker, CI/CD, metrics.
+
 # 1.Performance Problem
 
 The original implementation retrieves all orders and then calls the `user-service` for every order individually:
