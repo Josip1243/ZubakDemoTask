@@ -1,0 +1,27 @@
+# BUILD STAGE
+FROM maven:3.9.12-eclipse-temurin-11 AS builder
+
+WORKDIR /build
+
+COPY pom.xml .
+RUN mvn -B dependency:go-offline
+
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
+
+# RUNTIME STAGE
+FROM eclipse-temurin:11-jre
+
+RUN useradd -ms /bin/bash spring
+
+USER spring
+
+WORKDIR /app
+
+COPY --from=builder /build/target/order-service-1.0.0.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-XX:+UseContainerSupport","-XX:MaxRAMPercentage=75.0","-jar","/app/app.jar"]
